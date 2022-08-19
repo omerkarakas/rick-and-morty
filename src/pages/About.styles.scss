@@ -1,0 +1,17 @@
+section {
+  padding: 5rem 0;
+  width: var(--smallWidth);
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  font-family: 'Fuzzy Bubbles', cursive;
+
+  .section-title {
+    font-size: 2rem;
+    text-transform: capitalize;
+    letter-spacing: var(--mainSpacing);
+    text-align: center;
+    margin-bottom: 3.5rem;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+}

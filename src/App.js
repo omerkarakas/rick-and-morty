@@ -1,32 +1,22 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import About from './pages/About';
+import Episode from './pages/Episode';
 
 function App() {
-  const [episodes, setEpisodes] = useState([]);
-
-  useEffect(() => {
-    const fetchEpisodes = async () => {
-      setEpisodes([]);
-      let list = [];
-      let data;
-      let nextUrl = 'https://rickandmortyapi.com/api/episode';
-      do {
-        const response = await fetch(nextUrl);
-        data = await response.json();
-        list.push(...data.results);
-        nextUrl = data.info.next;
-      } while (nextUrl);
-
-      setEpisodes(list);
-      console.log(list.length);
-    };
-
-    fetchEpisodes();
-  }, []);
+  //  const { loading, episodes } = useContext(AppContext);
 
   return (
     <>
-      <h1>App</h1>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="episode/:id" element={<Episode />} />
+        </Routes>
+      </Router>
     </>
   );
 }

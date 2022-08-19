@@ -1,8 +1,26 @@
+@import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Fuzzy+Bubbles:wght@400;700&family=Poppins&display=swap');
+
+:root {
+  --primaryLightColor: #d4e6a5;
+  --primaryColor: #02b1c8;
+  --secondaryColor: #97b841;
+  --smallWidth: 85vw;
+  --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
+  --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +28,39 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@keyframes f5-0 {
+  0% {
+    transform: scale(1, 1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1, -1) rotate(90deg);
+  }
+}
+
+@keyframes f5-1 {
+  0% {
+    transform: scale(var(--s, 1)) perspective(150px) rotateX(0deg);
+  }
+  100% {
+    transform: scale(var(--s, 1)) perspective(150px) rotateX(180deg);
+  }
+}
+
+@keyframes f5-2 {
+  0% {
+    background: var(--primaryColor);
+  }
+  50% {
+    background: var(--secondaryColor);
+  }
+}
+
+.ant-radio-button {
+  background-color: var(--primaryColor);
+}
+
+.ant-radio-button-checked {
+  background-color: var(--primaryColor);
 }
