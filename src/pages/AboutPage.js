@@ -1,9 +1,9 @@
 import React from 'react';
-import './About.styles.scss';
+import './AboutPage.styles.scss';
 
-const About = () => {
+const AboutPage = () => {
   return (
-    <section>
+    <main className="main-about">
       <h1 className="section-title">About R&M API and This Website</h1>
       <p>
         The Rick and Morty API (https://rickandmortyapi.com/) is a REST(ish) and
@@ -16,8 +16,8 @@ const About = () => {
         This web app is just a simple consumer of this API designed by Omer
         Karakas.
       </p>
-    </section>
+    </main>
   );
 };
 
-export default About;
+export default AboutPage;

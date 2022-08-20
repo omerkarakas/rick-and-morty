@@ -1,9 +1,11 @@
-main {
-  padding: 1rem;
+.main-home {
+  padding: 0.2rem;
+  text-align: center;
+  width: 90%;
 
   .seasons-container {
     height: 70px;
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: center;
     margin-top: 15px;

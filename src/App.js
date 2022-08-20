@@ -1,8 +1,9 @@
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import About from './pages/About';
-import Episode from './pages/Episode';
+import AboutPage from './pages/AboutPage';
+import EpisodePage from './pages/EpisodePage';
+import CharacterPage from './pages/CharacterPage';
 
 function App() {
   //  const { loading, episodes } = useContext(AppContext);
@@ -12,9 +13,10 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="episode/:id" element={<Episode />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="episode/:id" element={<EpisodePage />} />
+          <Route path="character/:id" element={<CharacterPage />} />
         </Routes>
       </Router>
     </>

@@ -8,7 +8,12 @@ const Navbar = () => {
     <sc.NavbarContainer>
       <div className="nav-center">
         <Link to="/">
-          <img src={logo} alt="rick and morty logo" className="logo" />
+          <img
+            src={logo}
+            alt="rick and morty logo"
+            className="logo"
+            width="120px"
+          />
         </Link>
         <ul className="nav-links">
           <li>

@@ -1,17 +1,14 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context';
 
-const Episodes = ({ data }) => {
+const Characters = ({ data }) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   console.log(data);
-
-  const { setCurrentEpisodeId } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -124,17 +121,8 @@ const Episodes = ({ data }) => {
       dataIndex: 'id',
       key: 'id',
       width: '15%',
-      // ...getColumnSearchProps('id'),
+      ...getColumnSearchProps('id'),
       sorter: (a, b) => a.id > b.id,
-      sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Episode',
-      dataIndex: 'episode',
-      key: 'episode',
-      width: '15%',
-      // ...getColumnSearchProps('episode'),
-      sorter: (a, b) => a.episode.localeCompare(b.episode),
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -146,11 +134,26 @@ const Episodes = ({ data }) => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Air Date',
-      dataIndex: 'air_date',
-      key: 'air_date',
-      width: '20%',
-      // ...getColumnSearchProps('air_date'),
+      title: 'Gender',
+      dataIndex: 'gender',
+      key: 'gender',
+      width: '15%',
+      ...getColumnSearchProps('gender'),
+      sorter: (a, b) => a.gender.localeCompare(b.gender),
+    },
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      width: '15%',
+      render: (image) => (
+        <img
+          className="charlist-avatar"
+          alt={image}
+          src={image}
+          width="60"
+          height="60"
+        />
+      ),
     },
   ];
   return (
@@ -163,8 +166,7 @@ const Episodes = ({ data }) => {
         return {
           onClick: (event) => {
             console.log(rowIndex, record);
-            setCurrentEpisodeId(record.id);
-            navigate('/episode/' + record.id);
+            navigate('/character/' + record.id);
           }, // click row
         };
       }}
@@ -172,4 +174,4 @@ const Episodes = ({ data }) => {
   );
 };
 
-export default Episodes;
+export default Characters;

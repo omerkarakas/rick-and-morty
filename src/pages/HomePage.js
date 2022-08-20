@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import react, { useContext } from 'react';
-import Episodes from '../components/Episodes';
-import { AppContext } from '../context';
+import { useContext } from 'react';
 import { Radio } from 'antd';
-import { useEffect } from 'react';
+import { AppContext } from '../context';
+import Episodes from '../components/Episodes';
 
-import './Home.styles.scss';
+import './HomePage.styles.scss';
 import Spinner from '../components/Spinner';
 
-const Home = () => {
+const HomePage = () => {
   const {
     loading,
     episodes,
@@ -18,20 +16,10 @@ const Home = () => {
     selectedSeasonsEpisodes,
   } = useContext(AppContext);
 
-  // const [season, setSeason] = useState('Season 1');
-  // const [selectedSeasonsEpisodes, setSelectedSeasonsEpisodes] =
-  //   useState(episodes);
-
-  // useEffect(() => {
-  //   setSelectedSeasonsEpisodes(
-  //     episodes.filter((episode) => episode.season === season)
-  //   );
-  // }, [season]);
-
   if (loading) return <Spinner />;
 
   return (
-    <main>
+    <main className="main-home">
       <div className="seasons-container">
         <Radio.Group
           value={selectedSeason}
@@ -50,9 +38,10 @@ const Home = () => {
           })}
         </Radio.Group>
       </div>
+      <h1>Episodes</h1>
       <Episodes data={selectedSeasonsEpisodes} />
     </main>
   );
 };
 
-export default Home;
+export default HomePage;

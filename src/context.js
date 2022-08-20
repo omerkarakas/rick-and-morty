@@ -9,7 +9,7 @@ const initialSeasonArray = [initialSeason];
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [episodes, setEpisodes] = useState(initialArray);
-  const [currentEpisodeId, setCurrentEpisodeId] = useState(1);
+  const [currentEpisodeId, setCurrentEpisodeId] = useState(-1);
 
   const [selectedEpisode, setSelectedEpisode] = useState(initialObject);
 
@@ -17,6 +17,46 @@ const AppProvider = ({ children }) => {
   const [selectedSeasonsEpisodes, setSelectedSeasonsEpisodes] =
     useState(episodes);
   const [seasons, setSeasons] = useState(initialSeasonArray);
+
+  const [characters, setCharacters] = useState([]);
+
+  const fetchCharacters = async (char_ids) => {
+    let url = 'https://rickandmortyapi.com/api/character/' + char_ids;
+    setLoading(true);
+    const response = await fetch(url);
+    let list = await response.json();
+
+    if (!Array.isArray(list)) {
+      list = [list];
+    }
+    // add character ids
+    list.forEach((listItem) => {
+      let episodeIds = listItem.episode.reduce((str, item) => {
+        return str + ',' + item.substring(item.lastIndexOf('/') + 1);
+      }, '');
+      listItem['episode_ids'] = episodeIds.replace(/^(,)+/, '');
+    });
+
+    setCharacters(list);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (currentEpisodeId !== -1) {
+      console.log('episodes:', episodes);
+      const charIds = episodes.find(
+        (ep) => ep.id === currentEpisodeId
+      ).character_ids;
+      console.log(
+        'currentEpisodeId:',
+        currentEpisodeId,
+        typeof currentEpisodeId,
+        'charIds:',
+        charIds
+      );
+      fetchCharacters(charIds);
+    }
+  }, [currentEpisodeId]);
 
   useEffect(() => {
     setSelectedSeasonsEpisodes(
@@ -42,12 +82,21 @@ const AppProvider = ({ children }) => {
         nextUrl = data.info.next;
       } while (nextUrl);
 
+      // add season field, Season 1, Season 2, Season 3 ...
       list.forEach((listItem) => {
         listItem['season'] = 'Season ' + Number(listItem.episode.slice(1, 3));
       });
 
+      // add character ids
+      list.forEach((listItem) => {
+        let charIds = listItem.characters.reduce((str, item) => {
+          return str + ',' + item.substring(item.lastIndexOf('/') + 1);
+        }, '');
+        listItem['character_ids'] = charIds.replace(/^(,)+/, '');
+      });
+
       setEpisodes(list);
-      // console.log(list);
+      console.log(list);
       setSelectedSeasonsEpisodes(
         list.filter((episode) => episode.season === selectedSeason)
       );
@@ -70,6 +119,7 @@ const AppProvider = ({ children }) => {
         selectedSeason,
         setSelectedSeason,
         selectedSeasonsEpisodes,
+        characters,
       }}
     >
       {children}

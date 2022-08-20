@@ -1,0 +1,23 @@
+.main-episode {
+  padding: 0.4rem;
+
+  .chars-container {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+}
