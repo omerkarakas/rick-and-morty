@@ -6,8 +6,6 @@ import EpisodePage from './pages/EpisodePage';
 import CharacterPage from './pages/CharacterPage';
 
 function App() {
-  //  const { loading, episodes } = useContext(AppContext);
-
   return (
     <>
       <Router>

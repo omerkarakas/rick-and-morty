@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# Rick And Morty API Client App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Live Demo
 
-### `npm start`
+See the app in action [here](https://rick-and-morty.okarakas.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Explore the code and run
 
-### `npm test`
+1. Clone or download the app source to a local folder.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. In order to install all dependencies
 
-### `npm run build`
+```bash
+npm install
+```
+
+3. Run the app using the following command
+
+```bash
+npm run start
+```
+
+4. Prepare build for a deployment
+
+```bash
+npm run build
+```
 
 Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Folders and Units
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## public
 
-### `npm run eject`
+Files, most importantly index.html.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## src
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This folder is the root of our source tree.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. src/**assets**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Static assets like logo and background images.
 
-## Learn More
+### 2. src/**components**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+JS components used to build the app
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Characters.js** :
+  The component displaying the passed array type probe character "data" in a searcable/sortable table component. Used in the EpisodePage component as the "Seen Characters" list.
 
-### Code Splitting
+- **Episodes.js** :
+  The component displaying the passed array type probe episodes "data" in a searcable/sortable table component. Used in the CharacterPage component as the "Seen in Episodes" list.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Navbar.js** :
+  The component displayed at the top of all pages.
 
-### Analyzing the Bundle Size
+- **Spinner.js** :
+  The component displayed during the API fetch.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **\_.styles.js** : Styled components of \_.js
 
-### Making a Progressive Web App
+### 3. src/**pages**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Any component as a page that can be routed through the app.
 
-### Advanced Configuration
+- **AboutPage.js**: A simple about page.
+- **CharacterPage.js**:
+  Page listing the details of a character represented by its id as parameter.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  1.  **character** : state of character object filtered from _characters_ array from the context.
+  2.  **charactersEpisodes** : state of array of episodes that the _character_ has a role which is set as a result of the function _fetchCharactersEpisodes_ call.
+  3.  This page uses "Episodes" component to list _charactersEpisodes_, the episodes where "character" is seen in.
 
-### Deployment
+- **EpisodePage.js** :
+  Page listing the details of an episode represented by its id as parameter.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  1.  **episode** : state of episode object filtered from _episodes_ array from the context.
+  2.  This page uses "Characters" component to list _characters_, the characters seen in this episode.
 
-### `npm run build` fails to minify
+- **HomePage.js** :
+- **\_.styles.scss** : SAAS styling for the page component of \_.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 4. src/**App.js**
+
+Routes the requests to any of the page components listed above, based on the path parameter.
+
+### 5. src/**context.js**
+
+- the context provider **AppProvider** that wraps App component in index.js
+- the context object **AppContext** that provides states and functions to other components:
+  1. **loading** : a state to show the loading spinner
+  2. **episodes** : All the episodes provided by the API (https://rickandmortyapi.com/api/episode), initialized in the fetchEpisodes function of useEffect hook which runs only in the loading phase of the context.
+     This state includes fields from the API, besides
+     - a field called **"character_ids"** which includes all character_id information separated by a comma. This is going to be used in "fetchCharacters" function.
+     - a field called **"season"** which is derived from the episode field. Eg: "Season 3"
+  3. **currentEpisodeId** : this state is listened with a useEffect hook to query all the characters playing in the corresponding episode by the function fetchCharacters.
+  4. **seasons** : A set derived from the episodes data in fetchEpisodes function of the load only useEffect hook. Eg: Season 1, Season 2, ...
+  5. **selectedSeason** : Helps to filter the episodes using the user's season selection. There is a hook to listen to this value, and re-set the selectedSeasonsEpisodes.
+  6. **characters** : a state array fetched from [https://rickandmortyapi.com/api/character/_characterIds_](https://rickandmortyapi.com/api/character/1,2,3) address by fetchCharacters function where characterIds represents the characters' ids playing in the current episode which has been added to the episode information before.
+  7. **fetchCharacters** : a function whose input is characters id array, and fetches corresponding characters. This function enriches the fetched character array by adding **"episode_ids"** field to each character object, which will be used later to fetch the episodes played the related character.
+
+### 6. src/**index.css**
+
+Application-wide styling rules listed here.
+
+### 7. src/**index.js**
+
+Starting point of the application, where mounting the root component including App component to DOM.

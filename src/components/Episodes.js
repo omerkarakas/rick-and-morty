@@ -9,7 +9,6 @@ const Episodes = ({ data }) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
-  console.log(data);
 
   const { setCurrentEpisodeId } = useContext(AppContext);
 
@@ -164,7 +163,7 @@ const Episodes = ({ data }) => {
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {
-            console.log(rowIndex, record);
+            //console.log(rowIndex, record);
             setCurrentEpisodeId(record.id);
             navigate('/episode/' + record.id);
           }, // click row

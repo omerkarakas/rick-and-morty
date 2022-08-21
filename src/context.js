@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect, createContext } from 'react';
-import { useCallback } from 'react';
+import { useState, useEffect, createContext } from 'react';
 
 const AppContext = createContext(null);
 const initialObject = { name: 'omer', id: 1 };
@@ -11,12 +10,10 @@ const AppProvider = ({ children }) => {
   const [episodes, setEpisodes] = useState(initialArray);
   const [currentEpisodeId, setCurrentEpisodeId] = useState(-1);
 
-  const [selectedEpisode, setSelectedEpisode] = useState(initialObject);
-
+  const [seasons, setSeasons] = useState(initialSeasonArray);
   const [selectedSeason, setSelectedSeason] = useState(initialSeason);
   const [selectedSeasonsEpisodes, setSelectedSeasonsEpisodes] =
     useState(episodes);
-  const [seasons, setSeasons] = useState(initialSeasonArray);
 
   const [characters, setCharacters] = useState([]);
 
@@ -43,17 +40,9 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentEpisodeId !== -1) {
-      console.log('episodes:', episodes);
       const charIds = episodes.find(
         (ep) => ep.id === currentEpisodeId
       ).character_ids;
-      console.log(
-        'currentEpisodeId:',
-        currentEpisodeId,
-        typeof currentEpisodeId,
-        'charIds:',
-        charIds
-      );
       fetchCharacters(charIds);
     }
   }, [currentEpisodeId]);
@@ -96,7 +85,6 @@ const AppProvider = ({ children }) => {
       });
 
       setEpisodes(list);
-      console.log(list);
       setSelectedSeasonsEpisodes(
         list.filter((episode) => episode.season === selectedSeason)
       );

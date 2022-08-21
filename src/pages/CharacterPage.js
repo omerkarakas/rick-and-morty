@@ -1,7 +1,7 @@
 import { HomeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Episodes from '../components/Episodes';
 import Spinner from '../components/Spinner';
 import { AppContext } from '../context';
@@ -45,7 +45,6 @@ const CharacterPage = () => {
   };
 
   useEffect(() => {
-    console.log('characters:', characters);
     if (characters.length < 1) {
       navigate('/');
       return;
