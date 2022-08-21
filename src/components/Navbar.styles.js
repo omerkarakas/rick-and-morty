@@ -2,19 +2,18 @@ import styled from 'styled-components';
 
 export const NavbarContainer = styled.nav`
   height: 70px;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 15px;
   margin-bottom: 15px;
   font-family: 'Fuzzy Bubbles', cursive;
   font-weight: bold;
-    background: var(--mainWhite);
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid var(--primaryColor);
-    box-shadow: var(--lightShadow);
+  background: var(--mainWhite);
+  height: 5rem;
+  border-bottom: 2px solid var(--primaryColor);
+  box-shadow: var(--lightShadow);
   }
   .nav-center {
     display: flex;
@@ -27,6 +26,7 @@ export const NavbarContainer = styled.nav`
   .nav-links {
     display: flex;
     align-items: center;
+    margin-bottom: 0px;    
   }
   .nav-links a {
     text-transform: capitalize;
@@ -42,7 +42,7 @@ export const NavbarContainer = styled.nav`
     color: var(--primaryColor);
   }
   .logo {
-    width: 12rem;
+    width: 8rem;
   }
 
   ul {

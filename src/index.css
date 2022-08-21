@@ -23,6 +23,16 @@ body {
     'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url('assets/rm-bg.png');
+  background-color: rgba(255, 255, 255, 0.9);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#root {
 }
 
 code {
@@ -67,8 +77,15 @@ code {
 
 .charlist-avatar {
   border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--primaryColor);
 }
 
 .ant-table-thead .ant-table-cell {
   background-color: var(--primaryLightColor);
+}
+
+.ant-btn-link {
+  color: var(--primaryColor);
 }

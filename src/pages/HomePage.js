@@ -9,7 +9,6 @@ import Spinner from '../components/Spinner';
 const HomePage = () => {
   const {
     loading,
-    episodes,
     seasons,
     selectedSeason,
     setSelectedSeason,

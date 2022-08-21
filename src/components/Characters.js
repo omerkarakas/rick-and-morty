@@ -132,6 +132,7 @@ const Characters = ({ data }) => {
       ...getColumnSearchProps('name'),
       sorter: (a, b) => a.name.localeCompare(b.name),
       sortDirections: ['descend', 'ascend'],
+      width: '35%',
     },
     {
       title: 'Gender',
@@ -140,19 +141,14 @@ const Characters = ({ data }) => {
       width: '15%',
       ...getColumnSearchProps('gender'),
       sorter: (a, b) => a.gender.localeCompare(b.gender),
+      responsive: ['sm'],
     },
     {
       title: 'Image',
       dataIndex: 'image',
-      width: '15%',
+      width: '20%',
       render: (image) => (
-        <img
-          className="charlist-avatar"
-          alt={image}
-          src={image}
-          width="60"
-          height="60"
-        />
+        <img className="charlist-avatar" alt={image} src={image} />
       ),
     },
   ];
@@ -162,6 +158,7 @@ const Characters = ({ data }) => {
       dataSource={data}
       pagination={false}
       rowKey="id"
+      width="auto"
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {

@@ -1,6 +1,8 @@
+import { HomeOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import react, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Characters from '../components/Characters';
 import Spinner from '../components/Spinner';
 import { AppContext } from '../context';
@@ -15,11 +17,18 @@ const EpisodePage = () => {
   const [episode, setEpisode] = useState(initialEpisode);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     let episode = episodes.find((episode) => episode.id === paramId);
     setEpisode(episode);
     // fetchCharacters(episode.character_ids);
   }, [paramId]);
+
+  if (episodes.length < 1) {
+    navigate('/');
+    return;
+  }
 
   if (loading) return <Spinner />;
 
@@ -30,18 +39,19 @@ const EpisodePage = () => {
           {episode.season} - {episode.episode}
         </h2>
         <h1>{episode.name}</h1>
-      </div>
-      <div className="details">
         <div className="detail-item">
-          Episode :<br /> <em>{episode.episode}</em>
-        </div>
-        <div className="detail-item">
-          Air Date :<br /> <em>{episode.air_date}</em>
+          Air Date : <strong>{episode.air_date}</strong>
         </div>
       </div>
-      <div className="">
-        <Characters data={characters} />
+      <div className="heading">
+        <h2>Seen Characters</h2>
       </div>
+      <Characters data={characters} />
+      <Link to="/">
+        <Button type="link" icon={<HomeOutlined />}>
+          Back Home
+        </Button>
+      </Link>
     </main>
   );
 };

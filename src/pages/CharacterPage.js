@@ -1,5 +1,7 @@
+import { HomeOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import Episodes from '../components/Episodes';
 import Spinner from '../components/Spinner';
 import { AppContext } from '../context';
@@ -17,6 +19,8 @@ const CharacterPage = () => {
   const [loading, setLoading] = useState(false);
 
   const { characters } = useContext(AppContext);
+
+  const navigate = useNavigate();
 
   const fetchCharactersEpisodes = async (episode_ids) => {
     let url = 'https://rickandmortyapi.com/api/episode/' + episode_ids;
@@ -41,6 +45,12 @@ const CharacterPage = () => {
   };
 
   useEffect(() => {
+    console.log('characters:', characters);
+    if (characters.length < 1) {
+      navigate('/');
+      return;
+    }
+
     let char = characters.find((character) => character.id === paramId);
     setCharacter(char);
     fetchCharactersEpisodes(char.episode_ids);
@@ -55,14 +65,24 @@ const CharacterPage = () => {
       </div>
       {/* <div className="details"> */}
       <div className="detail-item">
-        Gender : <em>{character.gender}</em>
+        Gender: <strong>{character.gender}</strong>
       </div>
-      <div className="detail-item">Location :{character?.location?.name}</div>
-      <div className="detail-item">Origin :{character?.origin?.name}</div>
-      <div className="detail-item">Species :{character.species}</div>
+      <div className="detail-item">
+        Location: <strong>{character?.location?.name}</strong>
+      </div>
+      <div className="detail-item">
+        Origin :<strong>{character?.origin?.name}</strong>
+      </div>
+      <div className="detail-item">
+        Species :<strong>{character.species}</strong>
+      </div>
       {/* </div> */}
       <div className="char-image-container">
-        <img src={character.image} alt={character.name} />
+        <img
+          className="char-image"
+          src={character.image}
+          alt={character.name}
+        />
       </div>
       <div className="char-episodes-container">
         <div className="heading">
@@ -70,68 +90,13 @@ const CharacterPage = () => {
         </div>
         <Episodes data={charactersEpisodes} />
       </div>
+      <Link to="/">
+        <Button type="link" icon={<HomeOutlined />}>
+          Back Home
+        </Button>
+      </Link>
     </main>
   );
 };
 
 export default CharacterPage;
-/*
-
-import react, { useContext, useState } from 'react';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Characters from '../components/Characters';
-import Spinner from '../components/Spinner';
-import { AppContext } from '../context';
-import './Episode.styles.scss';
-
-const initialEpisode = { id: '-1', name: 'part-1' };
-const Episode = () => {
-  const { id } = useParams();
-  //  const [loading, setLoading] = useState(false);
-  const { episodes } = useContext(AppContext);
-  const [episode, setEpisode] = useState(initialEpisode);
-
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const fetchCharacters = async (char_ids) => {
-    let url = 'https://rickandmortyapi.com/api/character/' + char_ids;
-    setLoading(true);
-    const response = await fetch(url);
-    const data = await response.json();
-    setCharacters(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    let episode = episodes.find((episode) => episode.id === Number(id));
-    setEpisode(episode);
-    fetchCharacters(episode.character_ids);
-  }, [id]);
-
-  if (loading) return <Spinner />;
-
-  return (
-    <main>
-      <div className="heading">
-        <h2>{episode.name}</h2>
-      </div>
-      <div className="details">
-        <div className="detail-item">
-          Episode :<br /> <em>{episode.episode}</em>
-        </div>
-        <div className="detail-item">
-          Air Date :<br /> <em>{episode.air_date}</em>
-        </div>
-        <div className="detail-item">{episode.season}</div>
-      </div>
-      <div className="">
-        <Characters data={characters} />
-      </div>
-    </main>
-  );
-};
-
-export default Episode;
-*/

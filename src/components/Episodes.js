@@ -133,7 +133,7 @@ const Episodes = ({ data }) => {
       dataIndex: 'episode',
       key: 'episode',
       width: '15%',
-      // ...getColumnSearchProps('episode'),
+      ...getColumnSearchProps('episode'),
       sorter: (a, b) => a.episode.localeCompare(b.episode),
       sortDirections: ['descend', 'ascend'],
     },
@@ -151,6 +151,7 @@ const Episodes = ({ data }) => {
       key: 'air_date',
       width: '20%',
       // ...getColumnSearchProps('air_date'),
+      responsive: ['sm'],
     },
   ];
   return (
@@ -159,6 +160,7 @@ const Episodes = ({ data }) => {
       dataSource={data}
       pagination={false}
       rowKey="id"
+      width="auto"
       onRow={(record, rowIndex) => {
         return {
           onClick: (event) => {

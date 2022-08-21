@@ -1,9 +1,18 @@
+import { HomeOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './AboutPage.styles.scss';
 
 const AboutPage = () => {
   return (
     <main className="main-about">
+      <Link to="/">
+        <Button type="link" icon={<HomeOutlined />}>
+          Back Home
+        </Button>
+      </Link>
+
       <h1 className="section-title">About R&M API and This Website</h1>
       <p>
         The Rick and Morty API (https://rickandmortyapi.com/) is a REST(ish) and
