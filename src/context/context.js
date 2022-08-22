@@ -20,6 +20,8 @@ const AppProvider = ({ children }) => {
   const fetchCharacters = async (char_ids) => {
     let url = 'https://rickandmortyapi.com/api/character/' + char_ids;
     setLoading(true);
+    console.log('API call : ' + url);
+
     const response = await fetch(url);
     let list = await response.json();
 
@@ -65,6 +67,7 @@ const AppProvider = ({ children }) => {
       let nextUrl = 'https://rickandmortyapi.com/api/episode';
       setLoading(true);
       do {
+        console.log('API call : ' + nextUrl);
         const response = await fetch(nextUrl);
         data = await response.json();
         list.push(...data.results);

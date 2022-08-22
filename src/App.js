@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
 import EpisodePage from './pages/EpisodePage';
 import CharacterPage from './pages/CharacterPage';
+import { AppProvider } from './context/context';
 
 function App() {
   return (
-    <>
+    <AppProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -17,7 +18,7 @@ function App() {
           <Route path="character/:id" element={<CharacterPage />} />
         </Routes>
       </Router>
-    </>
+    </AppProvider>
   );
 }
 

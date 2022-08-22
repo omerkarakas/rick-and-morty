@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Episodes from '../components/Episodes';
 import Spinner from '../components/Spinner';
-import { AppContext } from '../context';
+import { AppContext } from '../context/context';
 import './CharacterPage.styles.scss';
 
 const initialCharacter = { id: '-1', name: 'omer' };
@@ -25,6 +25,7 @@ const CharacterPage = () => {
   const fetchCharactersEpisodes = async (episode_ids) => {
     let url = 'https://rickandmortyapi.com/api/episode/' + episode_ids;
     setLoading(true);
+    console.log('API call : ' + url);
     const response = await fetch(url);
     let list = await response.json();
 

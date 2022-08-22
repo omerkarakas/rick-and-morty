@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Radio } from 'antd';
-import { AppContext } from '../context';
+import { AppContext } from '../context/context';
 import Episodes from '../components/Episodes';
 
 import './HomePage.styles.scss';

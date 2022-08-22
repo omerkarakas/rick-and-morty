@@ -3,7 +3,7 @@ import { Button, Input, Space, Table } from 'antd';
 import React, { useContext, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../context';
+import { AppContext } from '../context/context';
 
 const Episodes = ({ data }) => {
   const [searchText, setSearchText] = useState('');

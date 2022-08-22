@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Characters from '../components/Characters';
 import Spinner from '../components/Spinner';
-import { AppContext } from '../context';
+import { AppContext } from '../context/context';
 import './EpisodePage.styles.scss';
 
 const initialEpisode = { id: '-1', name: 'part-1' };
