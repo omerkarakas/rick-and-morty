@@ -6,7 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Live Demo
 
-See the app in action [here](https://rick-and-morty.okarakas.com)
+See the app in action in [netlify](https://rickn-morty.netlify.app) or
+in [mysite](https://rick-and-morty.okarakas.com)
 
 ---
 
@@ -66,7 +67,22 @@ JS components used to build the app
 
 - **\_.styles.js** : Styled components of \_.js
 
-### 3. src/**pages**
+### 3. src/context/**context.js**
+
+- the context provider **AppProvider** that wraps App component in index.js
+- the context object **AppContext** that provides states and functions to other components:
+  1. **loading** : a state to show the loading spinner
+  2. **episodes** : All the episodes provided by the API (https://rickandmortyapi.com/api/episode), initialized in the fetchEpisodes function of useEffect hook which runs only in the loading phase of the context.
+     This state includes fields from the API, besides
+     - a field called **"character_ids"** which includes all character_id information separated by a comma. This is going to be used in "fetchCharacters" function.
+     - a field called **"season"** which is derived from the episode field. Eg: "Season 3"
+  3. **currentEpisodeId** : this state is listened with a useEffect hook to query all the characters playing in the corresponding episode by the function fetchCharacters.
+  4. **seasons** : A set derived from the episodes data in fetchEpisodes function of the load only useEffect hook. Eg: Season 1, Season 2, ...
+  5. **selectedSeason** : Helps to filter the episodes using the user's season selection. There is a hook to listen to this value, and re-set the selectedSeasonsEpisodes.
+  6. **characters** : a state array fetched from [https://rickandmortyapi.com/api/character/_characterIds_](https://rickandmortyapi.com/api/character/1,2,3) address by fetchCharacters function where characterIds represents the characters' ids playing in the current episode which has been added to the episode information before.
+  7. **fetchCharacters** : a function whose input is characters id array, and fetches corresponding characters. This function enriches the fetched character array by adding **"episode_ids"** field to each character object, which will be used later to fetch the episodes played the related character.
+
+### 4. src/**pages**
 
 Any component as a page that can be routed through the app.
 
@@ -87,24 +103,9 @@ Any component as a page that can be routed through the app.
 - **HomePage.js** :
 - **\_.styles.scss** : SAAS styling for the page component of \_.js
 
-### 4. src/**App.js**
+### 5. src/**App.js**
 
 Routes the requests to any of the page components listed above, based on the path parameter.
-
-### 5. src/**context.js**
-
-- the context provider **AppProvider** that wraps App component in index.js
-- the context object **AppContext** that provides states and functions to other components:
-  1. **loading** : a state to show the loading spinner
-  2. **episodes** : All the episodes provided by the API (https://rickandmortyapi.com/api/episode), initialized in the fetchEpisodes function of useEffect hook which runs only in the loading phase of the context.
-     This state includes fields from the API, besides
-     - a field called **"character_ids"** which includes all character_id information separated by a comma. This is going to be used in "fetchCharacters" function.
-     - a field called **"season"** which is derived from the episode field. Eg: "Season 3"
-  3. **currentEpisodeId** : this state is listened with a useEffect hook to query all the characters playing in the corresponding episode by the function fetchCharacters.
-  4. **seasons** : A set derived from the episodes data in fetchEpisodes function of the load only useEffect hook. Eg: Season 1, Season 2, ...
-  5. **selectedSeason** : Helps to filter the episodes using the user's season selection. There is a hook to listen to this value, and re-set the selectedSeasonsEpisodes.
-  6. **characters** : a state array fetched from [https://rickandmortyapi.com/api/character/_characterIds_](https://rickandmortyapi.com/api/character/1,2,3) address by fetchCharacters function where characterIds represents the characters' ids playing in the current episode which has been added to the episode information before.
-  7. **fetchCharacters** : a function whose input is characters id array, and fetches corresponding characters. This function enriches the fetched character array by adding **"episode_ids"** field to each character object, which will be used later to fetch the episodes played the related character.
 
 ### 6. src/**index.css**
 
